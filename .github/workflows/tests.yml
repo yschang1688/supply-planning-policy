@@ -1,0 +1,36 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  kpi-and-data-contract:
+    # 守的是 KPI 的定義與資料契約，不是模型分數。欠貨符號寫反、FIFO 寫成 LIFO、
+    # fill rate 沒封頂，程式都照跑，只有結論錯——所以這些才是 CI 該擋的東西。
+    # 不下載資料：測試只吃人工構造的小序列，CI 離線可跑。
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: KPI 與品質檢核（含反向測試）
+        run: python -m pytest tests/ -q --ignore=tests/test_results_claims.py
+
+  claim-discipline:
+    # results/*.json 是 README 數字的唯一出處；這一關確認落盤結果彼此一致、
+    # 方向沒有悄悄翻轉（例：期初欠貨版的服務水準不得比零版好看）。
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m pytest tests/test_results_claims.py -q

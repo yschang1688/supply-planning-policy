@@ -1,0 +1,128 @@
+{
+  "scope": {
+    "active_skus": 32,
+    "dormant_skus": 9,
+    "stockout_definition_days": 7
+  },
+  "fill_rate_ton_weighted": 0.9861,
+  "fifo_opening_backlog_zero": {
+    "n_lots": 4865,
+    "otif_proxy_by_d": {
+      "0": {
+        "by_lot": 0.0068,
+        "by_ton": 0.0006
+      },
+      "1": {
+        "by_lot": 0.0444,
+        "by_ton": 0.0184
+      },
+      "2": {
+        "by_lot": 0.23,
+        "by_ton": 0.2974
+      },
+      "3": {
+        "by_lot": 0.3994,
+        "by_ton": 0.5427
+      },
+      "4": {
+        "by_lot": 0.5651,
+        "by_ton": 0.7556
+      },
+      "5": {
+        "by_lot": 0.6689,
+        "by_ton": 0.855
+      },
+      "6": {
+        "by_lot": 0.7309,
+        "by_ton": 0.8917
+      },
+      "7": {
+        "by_lot": 0.7646,
+        "by_ton": 0.9195
+      }
+    },
+    "stockout_rate_by_d": {
+      "0": 0.9186,
+      "1": 0.7576,
+      "2": 0.5895,
+      "3": 0.4427,
+      "4": 0.3491,
+      "5": 0.2896,
+      "6": 0.2541,
+      "7": 0.2255
+    },
+    "median_days_to_fill": 4.0,
+    "p90_days_to_fill": 13.0,
+    "share_lots_never_filled": 0.0366,
+    "unfilled_at_end_tons": 1698.5,
+    "unmatched_delivery_tons": 115.6
+  },
+  "fifo_opening_backlog_lower_bound": {
+    "n_lots": 4865,
+    "otif_proxy_by_d": {
+      "0": {
+        "by_lot": 0.001,
+        "by_ton": 0.0
+      },
+      "1": {
+        "by_lot": 0.0292,
+        "by_ton": 0.0099
+      },
+      "2": {
+        "by_lot": 0.2129,
+        "by_ton": 0.2912
+      },
+      "3": {
+        "by_lot": 0.3829,
+        "by_ton": 0.5395
+      },
+      "4": {
+        "by_lot": 0.5488,
+        "by_ton": 0.7537
+      },
+      "5": {
+        "by_lot": 0.6565,
+        "by_ton": 0.854
+      },
+      "6": {
+        "by_lot": 0.7194,
+        "by_ton": 0.8901
+      },
+      "7": {
+        "by_lot": 0.7568,
+        "by_ton": 0.9186
+      }
+    },
+    "stockout_rate_by_d": {
+      "0": 0.9362,
+      "1": 0.7771,
+      "2": 0.6083,
+      "3": 0.461,
+      "4": 0.3634,
+      "5": 0.3019,
+      "6": 0.2636,
+      "7": 0.232
+    },
+    "median_days_to_fill": 4.0,
+    "p90_days_to_fill": 13.0,
+    "share_lots_never_filled": 0.0366,
+    "unfilled_at_end_tons": 1698.5,
+    "unmatched_delivery_tons": 0.0
+  },
+  "days_of_cover_lower_bound": {
+    "portfolio_median": 4.9,
+    "portfolio_p10": 3.1,
+    "portfolio_p90": 9.3,
+    "sku_median_of_medians": 5.6
+  },
+  "segments": {
+    "AX": 7,
+    "AY": 1,
+    "BX": 6,
+    "BY": 2,
+    "CX": 7,
+    "CY": 6,
+    "CZ": 3,
+    "D": 9
+  }
+}

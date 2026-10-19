@@ -1,0 +1,62 @@
+{
+  "dates": {
+    "start": "2023-01-01",
+    "end": "2023-08-09",
+    "days": 221
+  },
+  "non_negative": {
+    "negative_rows": 0
+  },
+  "ton_ratio": {
+    "max_relative_spread": 1.4600589256138125e-14,
+    "weight_column_missing": [
+      "POV005L04P/factory_issue"
+    ]
+  },
+  "n_skus": 41,
+  "weekday_mean_order_units": {
+    "Mon": 46200.4,
+    "Tue": 38068.2,
+    "Wed": 34871.4,
+    "Thu": 53941.5,
+    "Fri": 1.9,
+    "Sat": 9102.4,
+    "Sun": 62071.6
+  },
+  "delivery_ahead_of_order_share": 0.1065,
+  "opening_backlog_lower_bound_units": {
+    "skus_positive": 14,
+    "total": 7554.5
+  },
+  "opening_stock_lower_bound_units": {
+    "skus_positive": 35,
+    "total": 141216.1
+  },
+  "dormant_skus": {
+    "threshold_zero_share": 0.98,
+    "count": 9,
+    "skus": [
+      "ATPA1K24P",
+      "ATPPCH5X5K",
+      "EEA200G24P",
+      "EEA500G12P",
+      "MAPA1K24P",
+      "POP015K",
+      "SO0001L12P",
+      "SO0005L04P",
+      "SO0500M24P"
+    ]
+  },
+  "shared_code_skus": [
+    "POP001L12P.1"
+  ],
+  "skus_without_site_mapping": [
+    "POP001L12P.1"
+  ],
+  "total_tons": {
+    "delivery": 117264.3,
+    "factory_issue": 117122.9,
+    "order": 118849.7,
+    "production": 117013.0
+  }
+}
