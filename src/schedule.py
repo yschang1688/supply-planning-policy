@@ -1,7 +1,7 @@
 """M4 產能排程：週別、多 SKU、有產能限制的批量問題（CLSP），以 HiGHS 求解。
 
 求解器走 scipy.optimize.milp（內建 HiGHS）。不用 PuLP 的原因：PuLP 4 改成新 API 且不再附 CBC，
-PuLP 2.x 附的 CBC 執行檔只有 x86_64，在 Apple Silicon 上跑不起來（2026-10-21 實測）。
+PuLP 2.x 附的 CBC 執行檔只有 x86_64，在 Apple Silicon 上跑不起來（2026-10-20 實測）。
 
 變數排列：每個 (SKU i, 週 t) 依序有 x（生產噸）、y（開線 0/1）、I（期末庫存）、B（期末欠單）、
 U（低於安全庫存的缺口，只在給 safety 時有成本）。
