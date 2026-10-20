@@ -20,8 +20,14 @@
 - [x] T-013：`requirements.txt`、`.gitignore`、MIT LICENSE
 - [x] T-014：GitHub Actions：tests（離線）＋claim-discipline
 
-## M2–M6（開工前補 design 附錄，再細拆）
-- [ ] T-020：M2 需求預測
+## M2 需求預測
+- [x] T-020：M2 假期表（公開來源核對，附 URL）
+- [x] T-021：M2 基準方法（季節 naive、星期平均、MA28）、ETS、Croston／TSB
+- [x] T-022：M2 LightGBM 全域模型（特徵只用起點以前；有／無假期兩版）
+- [x] T-023：M2 rolling-origin 回測與評估（噸數 WAPE／bias、分群、分 horizon、成對比較）
+- [x] T-024：M2 反向測試（竄改未來值、固定週型態、Croston vs TSB 衰減）＋落盤結果宣稱守門
+
+## M3–M6（開工前補 design 附錄，再細拆）
 - [ ] T-030：M3 庫存政策模擬
 - [ ] T-040：M4 產能排程 MILP
 - [ ] T-050：M5 欠貨風險分類

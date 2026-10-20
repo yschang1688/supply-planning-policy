@@ -56,3 +56,35 @@ def test_opening_backlog_never_makes_service_look_better(m1):
 def test_segment_counts_cover_all_skus(q, m1):
     assert sum(m1["segments"].values()) == q["n_skus"]
     assert m1["segments"]["D"] == q["dormant_skus"]["count"]
+
+
+# ── M2：預測的兩個結論 ──────────────────────────────────────────────────
+@pytest.fixture(scope="module")
+def m2():
+    return json.loads((RESULTS / "m2_forecast.json").read_text(encoding="utf-8"))
+
+
+def test_m2_backtest_design(m2):
+    d = m2["design"]
+    assert d["n_origins"] == 15 and d["horizon_days"] == 7 and d["skus"] == 32
+    assert d["holiday_origins"] == ["2023-04-22", "2023-06-24"]
+
+
+def test_m2_ignoring_weekday_is_clearly_worse(m2):
+    """結論一：不分星期的移動平均在每個起點都輸給星期平均——星期效應是真的。"""
+    p = m2["paired_vs_reference"]["all_origins"]["ma28"]
+    assert p["a_wins"] == 0 and p["wilcoxon_p"] < 0.01
+
+
+def test_m2_model_choice_within_noise_outside_holidays(m2):
+    """結論二：排除節日週後，沒有任何方法顯著贏過星期平均（README 依此寫「換模型在雜訊內」）。"""
+    for name, p in m2["paired_vs_reference"]["excluding_holiday_origins"].items():
+        if name == "ma28":
+            continue
+        assert not (p["median_diff"] < 0 and p["wilcoxon_p"] < 0.05), name
+
+
+def test_m2_l1_objective_underforecasts(m2):
+    """L1 目標預測的是中位數，需求右偏時會系統性低估——M3 的安全庫存必須看到這個 bias。"""
+    assert m2["overall"]["lgbm"]["bias"] < 0
+    assert m2["overall"]["lgbm_calendar"]["bias"] < 0

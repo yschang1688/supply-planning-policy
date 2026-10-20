@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/yschang1688/supply-planning-policy/actions/workflows/tests.yml/badge.svg)](https://github.com/yschang1688/supply-planning-policy/actions/workflows/tests.yml)
 
-> **狀態：進行中。** M0 資料契約與 M1 KPI 層已完成；需求預測、庫存政策模擬、產能排程 MILP、欠貨風險分類開發中。結論段等全部模組完成後再寫，數字一律以 `results/*.json` 為準。
+> **狀態：進行中。** M0 資料契約、M1 KPI 層、M2 需求預測回測已完成；庫存政策模擬、產能排程 MILP、欠貨風險分類開發中。結論段等全部模組完成後再寫，數字一律以 `results/*.json` 為準。
 
 用一家製造商的真實日流量（訂單、生產、工廠出庫、出貨），回答計畫員每天要回答的三件事：服務水準目標怎麼定、要放多少庫存、產能怎麼排。
 
@@ -15,6 +15,7 @@ SupplyGraph（Wasi, Islam & Akib, 2024, [arXiv:2401.15299](https://arxiv.org/abs
 ```bash
 python -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python scripts/run_m0_m1.py      # 下載、品質報告、KPI，落盤到 results/
+.venv/bin/python scripts/run_m2.py         # 15 個起點的預測回測（約 1 分鐘）
 .venv/bin/python -m pytest tests/ -q
 ```
 
@@ -26,3 +27,4 @@ python -m venv .venv && .venv/bin/pip install -r requirements.txt
 | 資料下載、sha256、寬表轉長表 | [`src/data.py`](src/data.py) |
 | 品質檢核（只報告、不修資料） | [`src/quality.py`](src/quality.py) → [`results/m0_quality.json`](results/m0_quality.json) |
 | fill rate、FIFO 欠貨帳齡、OTIF 代理、缺貨率、庫存天數、ABC×XYZ | [`src/kpi.py`](src/kpi.py) → [`results/m1_kpi.json`](results/m1_kpi.json)、[`results/m1_sku_table.csv`](results/m1_sku_table.csv) |
+| 8 種預測方法、行事曆特徵、rolling-origin 回測 | [`src/forecast.py`](src/forecast.py) → [`results/m2_forecast.json`](results/m2_forecast.json)、[`results/m2_backtest.csv`](results/m2_backtest.csv) |

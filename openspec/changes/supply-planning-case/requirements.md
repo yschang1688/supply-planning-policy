@@ -66,9 +66,31 @@
 - WHEN 計算 WAPE 與 bias
 - THEN 低估與高估的 bias 符號相反；實際值全為 0 時 WAPE 回傳 NaN，不得回傳 0
 
-## US-003 至 US-007（M2–M6，開工前補完整情境）
+## US-003：需求預測（M2）
 
-- **US-003 需求預測（M2）**：rolling-origin 回測，7 天 horizon，約 8 個起點；基準（季節 naive、移動平均、ETS）、間歇 SKU 用 Croston／TSB、LightGBM 全域模型；依 ABC×XYZ 分群報 WAPE 與 bias。不贏基準就照寫。
+**As a** 計畫員，**I want** 知道哪種預測方法在哪一群 SKU 上真的比較好、好多少，**so that** 我不會為了幾個百分點的準度去維護一個複雜模型。
+
+#### Scenario: 不偷看未來
+- WHEN 在某個起點產生特徵與訓練資料
+- THEN 起點之後的任何數值改動都不會改變該起點的特徵與預測（測試直接竄改未來值驗證）
+
+#### Scenario: 基準方法正確
+- WHEN 需求是固定的週型態（每週同一天量相同）
+- THEN 季節 naive 與星期平均的預測與實際完全相同；移動平均 28 不會
+
+#### Scenario: 間歇需求方法
+- WHEN 需求為常數 c
+- THEN Croston 與 TSB 的平均日預測都等於 c
+- WHEN 需求在某天後全為 0
+- THEN TSB 的預測逐期下降，Croston 不會（這是兩者的已知差異）
+
+#### Scenario: 比較要附雜訊帶
+- WHEN 比較兩個方法
+- THEN 報 15 個起點成對差的中位數、勝場數與 Wilcoxon p 值；「排除節日週」版本另報
+
+## US-004 至 US-007（M3–M6，開工前補完整情境）
+
+
 - **US-004 庫存政策模擬（M3）**：Monte Carlo（R,S）與（s,S），需求 = 預測 + bootstrap 殘差；輸出 fill rate × 庫存天數權衡曲線，檢驗 H1、H2。零變異時 fill rate 必 = 1；前置期加長時 fill rate 必須單調不增。
 - **US-005 產能排程 MILP（M4）**：PuLP＋CBC，週別多 SKU 有產能限制批量問題，含最小批量（噸）與換線成本；與實際生產比較庫存、欠貨、換線次數。產能不足必回 infeasible；放寬最小批量，目標值不得變差。
 - **US-006 欠貨風險分類（M5）**：預測未來 7 天會不會欠貨（LightGBM vs 邏輯迴歸），時間切分，PR 曲線選門檻，輸出警示清單。隨機切分會被洩漏測試擋下。
