@@ -129,3 +129,36 @@ def test_m3_readme_verdicts(m3):
     assert m3["h2"]["supported"] is False
     eq = m3["h1"]["method_effect_cover_at_equal_fill"]
     assert m3["h1"]["target_effect_0.80_to_0.99"]["days_of_cover"] > 3 * eq["range_days"]
+
+
+# ── M4：產能排程 ────────────────────────────────────────────────────────
+@pytest.fixture(scope="module")
+def m4():
+    return json.loads((RESULTS / "m4_schedule.json").read_text(encoding="utf-8"))
+
+
+def test_m4_all_solves_optimal(m4):
+    assert m4["all_optimal"]
+    assert m4["rolling"]["no_safety_stock"]["statuses"] == ["optimal"]
+    assert m4["rolling"]["with_safety_stock"]["statuses"] == ["optimal"]
+    assert m4["design"]["excluded_never_produced"] == ["SO0002L09P"]
+
+
+def test_m4_frontier_is_a_tradeoff(m4):
+    f = sorted(m4["frontier"], key=lambda r: r["setup_cost"])
+    setups = [r["setups"] for r in f]
+    assert setups == sorted(setups, reverse=True)
+    # 單調的是「庫存＋欠單成本」，不是庫存本身；MIP gap 0.5% 內的抖動容許
+    other = [r["mean_inventory_t"] + 10 * r["mean_backlog_t"] for r in f]
+    tol = [0.005 * r["objective"] / 11 for r in f]
+    assert all(b >= a - t for a, b, t in zip(other, other[1:], tol[1:]))
+    assert other[-1] > other[0] * 1.3
+
+
+def test_m4_readme_findings(m4):
+    """README 的三句：完全資訊可少換線、沒安全庫存的滾動計畫會大量欠單、
+    加了安全庫存仍貴過實際計畫（實際的逐日小批量節奏在這份資料上很難打敗）。"""
+    assert m4["perfect_info_same_setup_cost"]["setups"] < m4["actual_plan"]["setups"]
+    r = m4["rolling"]
+    assert r["no_safety_stock"]["mean_backlog_t"] > 10 * r["with_safety_stock"]["mean_backlog_t"]
+    assert r["with_safety_stock"]["cost"] > m4["actual_cost_same_setup_cost"]

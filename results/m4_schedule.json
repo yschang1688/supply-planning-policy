@@ -1,0 +1,178 @@
+{
+  "design": {
+    "weeks": 11,
+    "start": "2023-05-21",
+    "end": "2023-08-05",
+    "skus": 31,
+    "excluded_never_produced": [
+      "SO0002L09P"
+    ],
+    "lines": {
+      "A": 5,
+      "M": 6,
+      "P": 10,
+      "S": 10
+    },
+    "capacity_t_per_week": {
+      "A": 1408.0,
+      "M": 243.2,
+      "P": 793.0,
+      "S": 4140.2
+    },
+    "min_batch_t": {
+      "median": 10.92,
+      "max": 146.55
+    },
+    "hold": 1.0,
+    "penalty": 10.0,
+    "setup_costs": [
+      0,
+      1,
+      2,
+      5,
+      10,
+      20,
+      50,
+      100,
+      200
+    ],
+    "net0_total_t_lower_bound": 6686.3,
+    "solver": "HiGHS via scipy.optimize.milp"
+  },
+  "actual_plan": {
+    "setups": 283,
+    "mean_inventory_t": 4339.01,
+    "mean_backlog_t": 0.0
+  },
+  "frontier": [
+    {
+      "setup_cost": 0,
+      "status": "optimal",
+      "mip_gap": 0.0003,
+      "objective": 15152.86,
+      "setups": 215,
+      "mean_inventory_t": 1376.22,
+      "mean_backlog_t": 0.13,
+      "actual_plan_cost_same_s": 47729.13
+    },
+    {
+      "setup_cost": 1,
+      "status": "optimal",
+      "mip_gap": 0.0003,
+      "objective": 15368.66,
+      "setups": 210,
+      "mean_inventory_t": 1376.75,
+      "mean_backlog_t": 0.13,
+      "actual_plan_cost_same_s": 48012.13
+    },
+    {
+      "setup_cost": 2,
+      "status": "optimal",
+      "mip_gap": 0.0001,
+      "objective": 15573.65,
+      "setups": 209,
+      "mean_inventory_t": 1376.48,
+      "mean_backlog_t": 0.13,
+      "actual_plan_cost_same_s": 48295.13
+    },
+    {
+      "setup_cost": 5,
+      "status": "optimal",
+      "mip_gap": 0.0008,
+      "objective": 16188.18,
+      "setups": 201,
+      "mean_inventory_t": 1378.63,
+      "mean_backlog_t": 0.17,
+      "actual_plan_cost_same_s": 49144.13
+    },
+    {
+      "setup_cost": 10,
+      "status": "optimal",
+      "mip_gap": 0.0005,
+      "objective": 17177.56,
+      "setups": 192,
+      "mean_inventory_t": 1384.02,
+      "mean_backlog_t": 0.3,
+      "actual_plan_cost_same_s": 50559.13
+    },
+    {
+      "setup_cost": 20,
+      "status": "optimal",
+      "mip_gap": 0.0015,
+      "objective": 19068.48,
+      "setups": 183,
+      "mean_inventory_t": 1397.35,
+      "mean_backlog_t": 0.34,
+      "actual_plan_cost_same_s": 53389.13
+    },
+    {
+      "setup_cost": 50,
+      "status": "optimal",
+      "mip_gap": 0.0045,
+      "objective": 24111.56,
+      "setups": 155,
+      "mean_inventory_t": 1478.69,
+      "mean_backlog_t": 0.87,
+      "actual_plan_cost_same_s": 61879.13
+    },
+    {
+      "setup_cost": 100,
+      "status": "optimal",
+      "mip_gap": 0.004,
+      "objective": 31167.88,
+      "setups": 134,
+      "mean_inventory_t": 1599.31,
+      "mean_backlog_t": 1.6,
+      "actual_plan_cost_same_s": 76029.13
+    },
+    {
+      "setup_cost": 200,
+      "status": "optimal",
+      "mip_gap": 0.0025,
+      "objective": 43044.96,
+      "setups": 109,
+      "mean_inventory_t": 1914.8,
+      "mean_backlog_t": 1.66,
+      "actual_plan_cost_same_s": 104329.13
+    }
+  ],
+  "frontier_inventory_at_actual_setups_t": 1376.22,
+  "all_optimal": true,
+  "rolling": {
+    "setup_cost": 20,
+    "forecast": "weekday_mean",
+    "horizon_weeks": 4,
+    "safety_stock": {
+      "alpha": 0.95,
+      "kind": "empirical",
+      "lead": 2,
+      "mean_total_t": 4381.3
+    },
+    "no_safety_stock": {
+      "statuses": [
+        "optimal"
+      ],
+      "setups": 209,
+      "mean_inventory_t": 1219.92,
+      "mean_backlog_t": 476.25,
+      "cost": 69986.84
+    },
+    "with_safety_stock": {
+      "statuses": [
+        "optimal"
+      ],
+      "setups": 179,
+      "mean_inventory_t": 5091.73,
+      "mean_backlog_t": 25.61,
+      "cost": 62406.26
+    }
+  },
+  "perfect_info_same_setup_cost": {
+    "setups": 183,
+    "mean_inventory_t": 1397.35,
+    "mean_backlog_t": 0.34,
+    "cost": 19068.48
+  },
+  "actual_cost_same_setup_cost": 53389.13,
+  "weekly_order_t_mean": 3041.1
+}
