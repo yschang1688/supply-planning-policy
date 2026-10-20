@@ -162,3 +162,27 @@ def test_m4_readme_findings(m4):
     r = m4["rolling"]
     assert r["no_safety_stock"]["mean_backlog_t"] > 10 * r["with_safety_stock"]["mean_backlog_t"]
     assert r["with_safety_stock"]["cost"] > m4["actual_cost_same_setup_cost"]
+
+
+# ── M5：欠貨風險分類 ────────────────────────────────────────────────────
+@pytest.fixture(scope="module")
+def m5():
+    return json.loads((RESULTS / "m5_classify.json").read_text(encoding="utf-8"))
+
+
+def test_m5_any7_label_is_mostly_persistence(m5):
+    """「任何缺貨」標籤：規則已接近天花板，所以主標籤改用「新發生」。"""
+    assert m5["any7"]["metrics"]["rule_age"]["pr_auc"] > 0.9
+
+
+def test_m5_onset_models_beat_rule_with_ci(m5):
+    b = m5["onset"]["bootstrap_pr_auc_vs_best_rule"]
+    assert b["logistic"]["ci95"][0] > 0
+    assert b["lightgbm"]["ci95"][0] > 0
+    met = m5["onset"]["metrics"]
+    assert met["logistic"]["pr_auc"] > met["lightgbm"]["pr_auc"]   # README：簡單模型較好
+
+
+def test_m5_random_split_inflates_score(m5):
+    d = m5["random_split_demo"]
+    assert d["lightgbm_pr_auc_random_split"] > d["lightgbm_pr_auc_time_split"] + 0.05

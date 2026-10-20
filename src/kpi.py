@@ -39,6 +39,7 @@ class FifoResult:
     oldest_open_age: np.ndarray   # 每天結束時最老未交齊批的年齡（天）；沒有未交齊批為 NaN
     unmatched_delivery: float     # 沒有任何未交齊訂單可配的出貨量
     open_at_end: float            # 期末仍未交齊的量（不含期初欠貨）
+    open_qty: np.ndarray | None = None   # 每天結束時未交齊的總量（含期初欠貨批）
 
 
 def fifo(order, delivery, opening_backlog: float = 0.0) -> FifoResult:
@@ -56,6 +57,7 @@ def fifo(order, delivery, opening_backlog: float = 0.0) -> FifoResult:
 
     lot_day, lot_qty, filled = [], [], []
     oldest = np.full(n, np.nan)
+    open_qty = np.zeros(n)
     unmatched = 0.0
     for t in range(n):
         if order[t] > EPS:
@@ -76,11 +78,12 @@ def fifo(order, delivery, opening_backlog: float = 0.0) -> FifoResult:
         unmatched += max(left, 0.0)
         if queue:
             oldest[t] = t - queue[0][0]
+            open_qty[t] = sum(q[1] for q in queue)
 
     lots = pd.DataFrame({"day": lot_day, "qty": lot_qty, "filled_day": filled})
     lots["days_to_fill"] = lots.filled_day - lots.day
     open_end = float(sum(q[1] for q in queue if q[2] >= 0))
-    return FifoResult(lots, oldest, unmatched, open_end)
+    return FifoResult(lots, oldest, unmatched, open_end, open_qty)
 
 
 def otif_curve(lots: pd.DataFrame, max_days: int = 7) -> dict:

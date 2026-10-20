@@ -1,0 +1,203 @@
+{
+  "design": {
+    "label": "onset",
+    "stockout_days": 7,
+    "horizon": 7,
+    "train_t": [
+      27,
+      140
+    ],
+    "purge": 7,
+    "test_t": [
+      147,
+      214
+    ],
+    "test_dates": [
+      "2023-05-28",
+      "2023-08-02"
+    ],
+    "features": [
+      "age",
+      "backlog_days",
+      "fill7",
+      "fill28",
+      "trend",
+      "cv28",
+      "vol28_t",
+      "cover",
+      "prod_ratio7",
+      "issue_ratio7",
+      "days_since_prod",
+      "dow",
+      "eid_next7",
+      "group_A",
+      "group_M",
+      "group_P",
+      "group_S"
+    ]
+  },
+  "onset": {
+    "n_train": 2802,
+    "n_test": 1491,
+    "prevalence_train": 0.1253,
+    "prevalence_test": 0.1683,
+    "metrics": {
+      "logistic": {
+        "pr_auc": 0.7722,
+        "roc_auc": 0.9414,
+        "brier": 0.0699,
+        "at_threshold": {
+          "threshold": 0.1646,
+          "precision": 0.5208,
+          "recall": 0.8964,
+          "alerts_per_day": 6.45
+        }
+      },
+      "lightgbm": {
+        "pr_auc": 0.7238,
+        "roc_auc": 0.9373,
+        "brier": 0.0758,
+        "at_threshold": {
+          "threshold": 0.095,
+          "precision": 0.5244,
+          "recall": 0.9004,
+          "alerts_per_day": 6.43
+        }
+      },
+      "rule_age": {
+        "pr_auc": 0.6013,
+        "roc_auc": 0.8756,
+        "at_threshold": {
+          "threshold": 5.4887,
+          "precision": 0.7294,
+          "recall": 0.494,
+          "alerts_per_day": 2.54
+        }
+      },
+      "rule_backlog_days": {
+        "pr_auc": 0.5234,
+        "roc_auc": 0.7763,
+        "at_threshold": {
+          "threshold": 7.4075,
+          "precision": 0.7234,
+          "recall": 0.4064,
+          "alerts_per_day": 2.1
+        }
+      }
+    },
+    "bootstrap_pr_auc_vs_best_rule": {
+      "logistic": {
+        "vs": "rule_age",
+        "median_diff": 0.1711,
+        "ci95": [
+          0.1054,
+          0.2296
+        ],
+        "share_positive": 1.0
+      },
+      "lightgbm": {
+        "vs": "rule_age",
+        "median_diff": 0.1213,
+        "ci95": [
+          0.0457,
+          0.2003
+        ],
+        "share_positive": 0.999
+      }
+    },
+    "lightgbm_gain_top8": {
+      "age": 0.253,
+      "cv28": 0.157,
+      "vol28_t": 0.123,
+      "backlog_days": 0.072,
+      "eid_next7": 0.068,
+      "prod_ratio7": 0.063,
+      "cover": 0.049,
+      "trend": 0.043
+    },
+    "logistic_coef_top8": {
+      "age": 1.459,
+      "eid_next7": 0.771,
+      "backlog_days": 0.685,
+      "group_P": -0.344,
+      "group_M": 0.343,
+      "cv28": 0.337,
+      "days_since_prod": 0.324,
+      "trend": -0.255
+    }
+  },
+  "any7": {
+    "n_train": 3616,
+    "n_test": 2144,
+    "prevalence_train": 0.3131,
+    "prevalence_test": 0.4104,
+    "metrics": {
+      "logistic": {
+        "pr_auc": 0.968,
+        "roc_auc": 0.9772,
+        "brier": 0.0605,
+        "at_threshold": {
+          "threshold": 0.3629,
+          "precision": 0.8956,
+          "recall": 0.8966,
+          "alerts_per_day": 13.15
+        }
+      },
+      "lightgbm": {
+        "pr_auc": 0.9694,
+        "roc_auc": 0.9781,
+        "brier": 0.0577,
+        "at_threshold": {
+          "threshold": 0.4306,
+          "precision": 0.909,
+          "recall": 0.8966,
+          "alerts_per_day": 12.96
+        }
+      },
+      "rule_age": {
+        "pr_auc": 0.942,
+        "roc_auc": 0.9576,
+        "at_threshold": {
+          "threshold": 6.0,
+          "precision": 0.9149,
+          "recall": 0.8557,
+          "alerts_per_day": 12.28
+        }
+      },
+      "rule_backlog_days": {
+        "pr_auc": 0.8608,
+        "roc_auc": 0.8424,
+        "at_threshold": {
+          "threshold": 6.7057,
+          "precision": 0.8905,
+          "recall": 0.7023,
+          "alerts_per_day": 10.36
+        }
+      }
+    },
+    "bootstrap_pr_auc_vs_best_rule": {
+      "logistic": {
+        "vs": "rule_age",
+        "median_diff": 0.026,
+        "ci95": [
+          0.0136,
+          0.0394
+        ],
+        "share_positive": 1.0
+      },
+      "lightgbm": {
+        "vs": "rule_age",
+        "median_diff": 0.0273,
+        "ci95": [
+          0.0157,
+          0.0401
+        ],
+        "share_positive": 1.0
+      }
+    }
+  },
+  "random_split_demo": {
+    "lightgbm_pr_auc_random_split": 0.8687,
+    "lightgbm_pr_auc_time_split": 0.7238
+  }
+}
