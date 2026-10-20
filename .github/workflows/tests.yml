@@ -20,11 +20,11 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: KPI 與品質檢核（含反向測試）
-        run: python -m pytest tests/ -q --ignore=tests/test_results_claims.py
+        run: python -m pytest tests/ -q --ignore=tests/test_results_claims.py --ignore=tests/test_readme_numbers.py
 
   claim-discipline:
     # results/*.json 是 README 數字的唯一出處；這一關確認落盤結果彼此一致、
-    # 方向沒有悄悄翻轉（例：期初欠貨版的服務水準不得比零版好看）。
+    # 方向沒有悄悄翻轉，且 README 的每個數字都還對得上落盤結果。
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,4 +33,4 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
-      - run: python -m pytest tests/test_results_claims.py -q
+      - run: python -m pytest tests/test_results_claims.py tests/test_readme_numbers.py -q

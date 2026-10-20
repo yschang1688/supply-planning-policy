@@ -46,5 +46,7 @@
 - [x] T-052：規則基準、邏輯迴歸、LightGBM；PR-AUC 按日 bootstrap；隨機切分洩漏示範
 - [x] T-053：警示清單落盤；測試（竄改未來、標籤、切分）＋突變探針
 
-## M6（開工前補 design 附錄）
-- [ ] T-060：M6 README 與 KPI 呈現
+## M6 溝通
+- [x] T-060：README 結論表、三句白話、現況 KPI 表、分析順序、限制段；總覽圖 `results/summary.png`
+- [x] T-061：README 數字守門測試（`tests/test_readme_numbers.py`，CI claim-discipline 關）
+- [x] T-062：humanizer 高信度全過

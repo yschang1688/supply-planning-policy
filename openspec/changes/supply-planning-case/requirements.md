@@ -159,10 +159,24 @@
 - WHEN 報告模型成績
 - THEN 同時報「最老未交齊批年齡」規則的 PR-AUC，以及按日 bootstrap 的差距區間；贏不過規則就照寫
 
-## US-007（M6，開工前補完整情境）
+## US-007：溝通（M6）
+
+**As a** 不熟供應鏈的主管，**I want** 打開 README 第一屏就看到結論與 KPI，**so that** 我不必讀程式就知道這份分析說了什麼。
+
+#### Scenario: 結論在前
+- WHEN 打開 README
+- THEN 總覽圖、英文摘要、結論表（每列一個發現＋數字）、三句白話依序出現在方法說明之前
+
+#### Scenario: 每個數字都有出處
+- WHEN README 出現任何結果數字
+- THEN 該數字由 `results/*.json` 重新排版後能逐字找到；結果重跑而 README 沒改時，CI 的 claim-discipline 會紅
+
+#### Scenario: 限制與結論同等可見
+- WHEN 讀到結論
+- THEN 同一頁有限制段，寫明代理指標、下限、假設與排除的 SKU
 
 
 
 
 
-- **US-007 溝通（M6）**：README 結論在最前面（三句話給非專家＋一張 KPI 表），每個數字都能在 `results/*.json` 找到。
+

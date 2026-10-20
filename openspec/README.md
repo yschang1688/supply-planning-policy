@@ -6,7 +6,7 @@
 
 | 變更 | 級 | 狀態 |
 |---|---|---|
-| [supply-planning-case](changes/supply-planning-case/) | L2（新 repo、跨多模組、新資料模型） | M0／M1 實作中；M2–M6 規格已列、細節開工前補 design 附錄 |
+| [supply-planning-case](changes/supply-planning-case/) | L2（新 repo、跨多模組、新資料模型） | M0–M6 完成，待發布後歸檔 |
 
 ## 已歸檔
 
