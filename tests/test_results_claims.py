@@ -88,3 +88,44 @@ def test_m2_l1_objective_underforecasts(m2):
     """L1 目標預測的是中位數，需求右偏時會系統性低估——M3 的安全庫存必須看到這個 bias。"""
     assert m2["overall"]["lgbm"]["bias"] < 0
     assert m2["overall"]["lgbm_calendar"]["bias"] < 0
+
+
+# ── M3：庫存政策 ────────────────────────────────────────────────────────
+@pytest.fixture(scope="module")
+def m3():
+    return json.loads((RESULTS / "m3_policy.json").read_text(encoding="utf-8"))
+
+
+def test_m3_design(m3):
+    d = m3["design"]
+    assert d["warmup_origins"] == 4 and len(d["measured_origins"]) == 11
+    assert d["skus"] == 32 and d["class_sizes"] == {"X": 20, "YZ": 12}
+
+
+def test_m3_base_curve_monotone_in_target(m3):
+    """同一需求路徑上，目標越高，庫存不會變少、fill rate 不會變差。"""
+    c = m3["base_curve"]
+    alphas = sorted(c, key=float)
+    cover = [c[a]["days_of_cover"] for a in alphas]
+    fill = [c[a]["fill_rate"] for a in alphas]
+    assert cover == sorted(cover)
+    assert fill == sorted(fill)
+
+
+def test_m3_h1_and_h2_flags_match_their_numbers(m3):
+    h1 = m3["h1"]
+    lo = h1["target_minus_method_days"]["ci95"][0]
+    assert h1["supported"] == (h1["bootstrap_valid_share"] >= 0.9 and lo > 0)
+    covers = h1["method_effect_cover_at_equal_fill"]["cover_by_method"]
+    assert all(v is not None for v in covers.values())     # 每個方法都內插得到
+    sf = m3["h2"]["mean_shortfall_alpha_ge_0.90"]
+    expect = sf["normal"]["YZ"] < sf["normal"]["X"] - 0.02 and sf["empirical"]["YZ"] > sf["normal"]["YZ"]
+    assert m3["h2"]["supported"] == expect
+
+
+def test_m3_readme_verdicts(m3):
+    """README 的兩句判定：H1 成立、H2 不成立。結果翻轉時這裡先紅，README 不能照舊。"""
+    assert m3["h1"]["supported"] is True
+    assert m3["h2"]["supported"] is False
+    eq = m3["h1"]["method_effect_cover_at_equal_fill"]
+    assert m3["h1"]["target_effect_0.80_to_0.99"]["days_of_cover"] > 3 * eq["range_days"]

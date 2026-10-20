@@ -1,0 +1,450 @@
+{
+  "design": {
+    "measured_origins": [
+      "2023-05-20",
+      "2023-05-27",
+      "2023-06-03",
+      "2023-06-10",
+      "2023-06-17",
+      "2023-06-24",
+      "2023-07-01",
+      "2023-07-08",
+      "2023-07-15",
+      "2023-07-22",
+      "2023-07-29"
+    ],
+    "warmup_origins": 4,
+    "alphas": [
+      0.8,
+      0.85,
+      0.9,
+      0.95,
+      0.98,
+      0.99
+    ],
+    "kinds": [
+      "normal_classic",
+      "normal",
+      "empirical"
+    ],
+    "policies": [
+      "RS",
+      "sS"
+    ],
+    "leads": [
+      1,
+      2,
+      3,
+      5,
+      7
+    ],
+    "n_configs": 576,
+    "n_boot": 1000,
+    "n_mc": 200,
+    "skus": 32,
+    "class_sizes": {
+      "X": 20,
+      "YZ": 12
+    }
+  },
+  "base_curve": {
+    "0.8": {
+      "fill_rate": 0.9482,
+      "csl": 0.8068,
+      "days_of_cover": 7.414,
+      "stockout_day_share": 0.0381
+    },
+    "0.85": {
+      "fill_rate": 0.9677,
+      "csl": 0.8494,
+      "days_of_cover": 8.8014,
+      "stockout_day_share": 0.0264
+    },
+    "0.9": {
+      "fill_rate": 0.9824,
+      "csl": 0.9205,
+      "days_of_cover": 12.0901,
+      "stockout_day_share": 0.0138
+    },
+    "0.95": {
+      "fill_rate": 0.9917,
+      "csl": 0.946,
+      "days_of_cover": 16.0484,
+      "stockout_day_share": 0.0093
+    },
+    "0.98": {
+      "fill_rate": 0.9973,
+      "csl": 0.9773,
+      "days_of_cover": 26.1585,
+      "stockout_day_share": 0.0037
+    },
+    "0.99": {
+      "fill_rate": 0.9986,
+      "csl": 0.983,
+      "days_of_cover": 29.6924,
+      "stockout_day_share": 0.0028
+    }
+  },
+  "h1": {
+    "base": {
+      "method": "weekday_mean",
+      "policy": "RS",
+      "kind": "empirical",
+      "lead": 2
+    },
+    "target_effect_0.80_to_0.99": {
+      "days_of_cover": 22.28,
+      "ci95": [
+        11.85,
+        46.54
+      ],
+      "fill_rate": 0.0504,
+      "fill_rate_ci95": [
+        0.04,
+        0.07
+      ]
+    },
+    "fill_target_for_equal_service": 0.98,
+    "bootstrap_valid_share": 0.924,
+    "method_effect_cover_at_equal_fill": {
+      "range_days": 2.78,
+      "ci95": [
+        0.94,
+        8.46
+      ],
+      "methods": [
+        "weekday_mean",
+        "ets",
+        "croston",
+        "tsb",
+        "lgbm",
+        "lgbm_calendar"
+      ],
+      "cover_by_method": {
+        "seasonal_naive": 10.26,
+        "weekday_mean": 11.56,
+        "ma28": 14.03,
+        "ets": 8.78,
+        "croston": 9.63,
+        "tsb": 9.39,
+        "lgbm": 10.13,
+        "lgbm_calendar": 9.11
+      }
+    },
+    "target_minus_method_days": {
+      "point": 19.5,
+      "ci95": [
+        10.5,
+        40.07
+      ],
+      "share_boot_positive": 1.0
+    },
+    "at_alpha_0.95_by_method": {
+      "seasonal_naive": {
+        "fill_rate": 0.9963,
+        "csl": 0.9744,
+        "days_of_cover": 15.804
+      },
+      "weekday_mean": {
+        "fill_rate": 0.9917,
+        "csl": 0.946,
+        "days_of_cover": 16.0484
+      },
+      "ma28": {
+        "fill_rate": 0.9844,
+        "csl": 0.9347,
+        "days_of_cover": 14.9006
+      },
+      "ets": {
+        "fill_rate": 0.9965,
+        "csl": 0.9688,
+        "days_of_cover": 14.2905
+      },
+      "croston": {
+        "fill_rate": 0.9952,
+        "csl": 0.9517,
+        "days_of_cover": 15.112
+      },
+      "tsb": {
+        "fill_rate": 0.9951,
+        "csl": 0.9545,
+        "days_of_cover": 14.8489
+      },
+      "lgbm": {
+        "fill_rate": 0.9963,
+        "csl": 0.9659,
+        "days_of_cover": 16.6839
+      },
+      "lgbm_calendar": {
+        "fill_rate": 0.9969,
+        "csl": 0.9659,
+        "days_of_cover": 16.8478
+      }
+    },
+    "supported": true
+  },
+  "h2": {
+    "by_kind": {
+      "normal_classic": {
+        "0.8": {
+          "csl_X": 0.8227,
+          "csl_YZ": 0.9697,
+          "shortfall_X": 0.0227,
+          "shortfall_YZ": 0.1697
+        },
+        "0.85": {
+          "csl_X": 0.85,
+          "csl_YZ": 0.9848,
+          "shortfall_X": 0.0,
+          "shortfall_YZ": 0.1348
+        },
+        "0.9": {
+          "csl_X": 0.8909,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0091,
+          "shortfall_YZ": 0.0848
+        },
+        "0.95": {
+          "csl_X": 0.9273,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0227,
+          "shortfall_YZ": 0.0348
+        },
+        "0.98": {
+          "csl_X": 0.9545,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0255,
+          "shortfall_YZ": 0.0048
+        },
+        "0.99": {
+          "csl_X": 0.9682,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0218,
+          "shortfall_YZ": -0.0052
+        }
+      },
+      "normal": {
+        "0.8": {
+          "csl_X": 0.8091,
+          "csl_YZ": 0.9848,
+          "shortfall_X": 0.0091,
+          "shortfall_YZ": 0.1848
+        },
+        "0.85": {
+          "csl_X": 0.8409,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0091,
+          "shortfall_YZ": 0.1348
+        },
+        "0.9": {
+          "csl_X": 0.8818,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0182,
+          "shortfall_YZ": 0.0848
+        },
+        "0.95": {
+          "csl_X": 0.9182,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0318,
+          "shortfall_YZ": 0.0348
+        },
+        "0.98": {
+          "csl_X": 0.9545,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0255,
+          "shortfall_YZ": 0.0048
+        },
+        "0.99": {
+          "csl_X": 0.9636,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0264,
+          "shortfall_YZ": -0.0052
+        }
+      },
+      "empirical": {
+        "0.8": {
+          "csl_X": 0.7864,
+          "csl_YZ": 0.8409,
+          "shortfall_X": -0.0136,
+          "shortfall_YZ": 0.0409
+        },
+        "0.85": {
+          "csl_X": 0.8182,
+          "csl_YZ": 0.9015,
+          "shortfall_X": -0.0318,
+          "shortfall_YZ": 0.0515
+        },
+        "0.9": {
+          "csl_X": 0.8818,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0182,
+          "shortfall_YZ": 0.0848
+        },
+        "0.95": {
+          "csl_X": 0.9227,
+          "csl_YZ": 0.9848,
+          "shortfall_X": -0.0273,
+          "shortfall_YZ": 0.0348
+        },
+        "0.98": {
+          "csl_X": 0.9682,
+          "csl_YZ": 0.9924,
+          "shortfall_X": -0.0118,
+          "shortfall_YZ": 0.0124
+        },
+        "0.99": {
+          "csl_X": 0.9773,
+          "csl_YZ": 0.9924,
+          "shortfall_X": -0.0127,
+          "shortfall_YZ": 0.0024
+        }
+      }
+    },
+    "mean_shortfall_alpha_ge_0.90": {
+      "normal_classic": {
+        "X": -0.0198,
+        "YZ": 0.0298
+      },
+      "normal": {
+        "X": -0.0255,
+        "YZ": 0.0298
+      },
+      "empirical": {
+        "X": -0.0175,
+        "YZ": 0.0336
+      }
+    },
+    "supported": false
+  },
+  "lead_time_sensitivity_alpha_0.95": {
+    "1": {
+      "fill_rate": 0.9961,
+      "csl": 0.9631,
+      "days_of_cover": 14.8948
+    },
+    "2": {
+      "fill_rate": 0.9917,
+      "csl": 0.946,
+      "days_of_cover": 16.0484
+    },
+    "3": {
+      "fill_rate": 0.99,
+      "csl": 0.9517,
+      "days_of_cover": 17.0605
+    },
+    "5": {
+      "fill_rate": 0.9949,
+      "csl": 0.9659,
+      "days_of_cover": 19.194
+    },
+    "7": {
+      "fill_rate": 0.9797,
+      "csl": 0.946,
+      "days_of_cover": 18.9298
+    }
+  },
+  "monte_carlo_lead_noise": {
+    "0.8": {
+      "fill_rate": {
+        "p05": 0.9237,
+        "p50": 0.9405,
+        "p95": 0.9564
+      },
+      "days_of_cover": {
+        "p05": 7.2939,
+        "p50": 7.4319,
+        "p95": 7.564
+      },
+      "csl": {
+        "p05": 0.8011,
+        "p50": 0.821,
+        "p95": 0.8381
+      }
+    },
+    "0.85": {
+      "fill_rate": {
+        "p05": 0.9471,
+        "p50": 0.9589,
+        "p95": 0.9725
+      },
+      "days_of_cover": {
+        "p05": 8.6718,
+        "p50": 8.8153,
+        "p95": 8.952
+      },
+      "csl": {
+        "p05": 0.8521,
+        "p50": 0.8665,
+        "p95": 0.8835
+      }
+    },
+    "0.9": {
+      "fill_rate": {
+        "p05": 0.9695,
+        "p50": 0.9769,
+        "p95": 0.9854
+      },
+      "days_of_cover": {
+        "p05": 11.9503,
+        "p50": 12.0936,
+        "p95": 12.2481
+      },
+      "csl": {
+        "p05": 0.9062,
+        "p50": 0.9176,
+        "p95": 0.929
+      }
+    },
+    "0.95": {
+      "fill_rate": {
+        "p05": 0.9861,
+        "p50": 0.9909,
+        "p95": 0.995
+      },
+      "days_of_cover": {
+        "p05": 15.8813,
+        "p50": 16.0483,
+        "p95": 16.2041
+      },
+      "csl": {
+        "p05": 0.946,
+        "p50": 0.9517,
+        "p95": 0.9631
+      }
+    },
+    "0.98": {
+      "fill_rate": {
+        "p05": 0.9949,
+        "p50": 0.9968,
+        "p95": 0.999
+      },
+      "days_of_cover": {
+        "p05": 25.9854,
+        "p50": 26.1557,
+        "p95": 26.3195
+      },
+      "csl": {
+        "p05": 0.9716,
+        "p50": 0.9773,
+        "p95": 0.983
+      }
+    },
+    "0.99": {
+      "fill_rate": {
+        "p05": 0.9974,
+        "p50": 0.9984,
+        "p95": 0.9995
+      },
+      "days_of_cover": {
+        "p05": 29.5098,
+        "p50": 29.6837,
+        "p95": 29.8632
+      },
+      "csl": {
+        "p05": 0.983,
+        "p50": 0.9858,
+        "p95": 0.9915
+      }
+    }
+  }
+}

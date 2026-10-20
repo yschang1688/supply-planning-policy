@@ -27,8 +27,14 @@
 - [x] T-023：M2 rolling-origin 回測與評估（噸數 WAPE／bias、分群、分 horizon、成對比較）
 - [x] T-024：M2 反向測試（竄改未來值、固定週型態、Croston vs TSB 衰減）＋落盤結果宣稱守門
 
-## M3–M6（開工前補 design 附錄，再細拆）
-- [ ] T-030：M3 庫存政策模擬
+## M3 庫存政策模擬
+- [x] T-030：模擬引擎（(R,S)、(s,S)、FIFO 欠單、隨機前置期）
+- [x] T-031：安全庫存三種 q（normal_classic／normal／empirical），只用過去誤差
+- [x] T-032：實驗格點（8 方法 × 6 目標 × 3 q × 2 政策 × L 掃描）＋Monte Carlo
+- [x] T-033：H1、H2 判定與 bootstrap 信賴區間，落盤 m3_policy.json／m3_grid.csv
+- [x] T-034：不變量測試（完美預測、守恆、SS 單調、前置期單調、不偷看未來）＋突變探針
+
+## M4–M6（開工前補 design 附錄，再細拆）
 - [ ] T-040：M4 產能排程 MILP
 - [ ] T-050：M5 欠貨風險分類
 - [ ] T-060：M6 README 與 KPI 呈現
